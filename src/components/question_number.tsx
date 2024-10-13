@@ -1,27 +1,31 @@
-interface BigCardProps {
-    number: number;
-    currentNumber: number;
-    answered: boolean;
-  }
-  
-  export default function QuestionNumber({
-    number,
-    currentNumber,
-    answered,
-  }: BigCardProps) {
-    return (
-      <button
-        className={`w-10 h-10 flex justify-center items-center rounded-md border
+import { MouseEventHandler } from "react";
+
+interface QuestionNumberProps {
+  number: number;
+  currentNumber: number;
+  answered: boolean;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+}
+
+export default function QuestionNumber({
+  number,
+  currentNumber,
+  answered,
+  onClick,
+}: QuestionNumberProps) {
+  return (
+    <button
+      onClick={onClick}
+      className={`w-8 h-8 lg:w-10 lg:h-10 flex justify-center items-center rounded-md border text-lg
           ${
-            answered
-              ? "bg-green-light bg-opacity-30 border-green-light border-opacity-10 text-green-main active:bg-opacity-50 active:border-opacity-30"
-              : currentNumber == number
-              ? "bg-green-main border-green-main text-white"
-              : "bg-white border-gray-neutrals hover:border-green-main active:border-green-dark text-gray-neutrals hover:text-green-main active:text-green-dark"
+            currentNumber === number
+              ? "bg-green-accent border-green-accent text-white" 
+              : answered
+              ? "bg-green-accent bg-opacity-30 border-green-accent border-opacity-10 text-green-accent active:bg-opacity-50 active:border-opacity-30"
+              : "bg-white border-gray-light hover:border-green-accent active:border-green-dark text-gray-light hover:text-green-accent active:text-green-dark"
           } text-sm md:text-base leading-none cursor-pointer`}
-      >
-        {number}
-      </button>
-    );
-  }
-  
+    >
+      {number}
+    </button>
+  );
+}
